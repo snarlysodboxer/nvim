@@ -3,7 +3,7 @@ require "nvchad.options"
 -- add yours here!
 
 local o = vim.o
-o.cursorlineopt='both'
+-- o.cursorlineopt='both'
 o.shell="/usr/local/bin/bash"
 o.shiftwidth=4
 o.softtabstop=4

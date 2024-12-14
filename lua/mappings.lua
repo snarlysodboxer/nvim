@@ -28,10 +28,19 @@ nomap("n", "<leader>rn") -- "toggle relative number"
 nomap("n", "<C-n>") -- "nvimtree toggle window"
 nomap("n", "<leader>h") -- "terminal new horizontal term"
 nomap("n", "<leader>v") -- "terminal new vertical term"
+nomap("n", "<M-i>") -- "terminal toggle floating term"
+nomap("n", "<M-h>") -- "terminal toggleable horizontal term"
+nomap("n", "<M-v>") -- "terminal toggleable vertical term"
+nomap("i", "<C-b>") -- "move beginning of line"
+nomap("i", "<C-e>") -- "move end of line"
+nomap("i", "<C-h>") -- "move left"
+nomap("i", "<C-l>") -- "move right"
+nomap("i", "<C-j>") -- "move down"
+nomap("i", "<C-k>") -- "move up"
 
--- stop highlighting search when hitting return
+-- stop highlighting search by pressing enter
 map("n", "<CR>", ":nohlsearch<cr>")
 
--- base64 encode/decode
+-- base64 encode/decode selection
 map("v", "<leader>64", "c<c-r>=system('base64', @\")<cr><esc>")
 map("v", "<leader>d64", "c<c-r>=system('base64 --decode', @\")<cr><esc>")

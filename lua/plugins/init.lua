@@ -13,7 +13,6 @@ return {
     opts = require "configs.conform",
   },
 
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -60,5 +59,49 @@ return {
     end,
     -- ---@type gopher.Config
     opts = {},
+  },
+
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
+        -- suggestion = {
+        --   enabled = false,
+        --   auto_trigger = true,
+        -- },
+        -- panel = { enabled = false },
+        -- -- filetypes = {
+        -- --   yaml = true,
+        -- --   markdown = true,
+        -- -- },
+      })
+    end,
+  },
+
+  {
+    "zbirenbaum/copilot-cmp",
+    lazy = false,
+    config = function ()
+      require("copilot_cmp").setup()
+    end,
+    -- dependencies = {
+    --   "zbirenbaum/copilot.lua",
+    --   cmd = "Copilot",
+    --   config = function()
+    --     require("copilot").setup({
+    --       suggestion = {
+    --         enabled = false,
+    --         auto_trigger = true,
+    --       },
+    --       panel = { enabled = false },
+    --       -- filetypes = {
+    --       --   yaml = true,
+    --       --   markdown = true,
+    --       -- },
+    --     })
+    --   end,
+    -- },
   },
 }

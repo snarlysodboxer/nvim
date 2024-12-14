@@ -23,6 +23,7 @@ end
 --   capabilities = nvlsp.capabilities,
 -- }
 
+-- setup gopls
 lspconfig.gopls.setup {
   on_attach = nvlsp.on_attach,
   capabilities = nvlsp.capabilities,
@@ -40,6 +41,7 @@ lspconfig.gopls.setup {
   },
 }
 
+-- on save, format and organizeImports
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
   pattern = "*.go",
   callback = function()
