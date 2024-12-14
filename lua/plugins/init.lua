@@ -21,13 +21,13 @@ return {
   },
 
   {
-   "NvChad/nvterm",
-    enabled = false
+    "NvChad/nvterm",
+     enabled = false
   },
 
   {
-   "nvim-tree/nvim-tree.lua",
-    enabled = false
+    "nvim-tree/nvim-tree.lua",
+     enabled = false
   },
 
   {
@@ -59,49 +59,5 @@ return {
     end,
     -- ---@type gopher.Config
     opts = {},
-  },
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup({
-        -- suggestion = {
-        --   enabled = false,
-        --   auto_trigger = true,
-        -- },
-        -- panel = { enabled = false },
-        -- -- filetypes = {
-        -- --   yaml = true,
-        -- --   markdown = true,
-        -- -- },
-      })
-    end,
-  },
-
-  {
-    "zbirenbaum/copilot-cmp",
-    lazy = false,
-    config = function ()
-      require("copilot_cmp").setup()
-    end,
-    -- dependencies = {
-    --   "zbirenbaum/copilot.lua",
-    --   cmd = "Copilot",
-    --   config = function()
-    --     require("copilot").setup({
-    --       suggestion = {
-    --         enabled = false,
-    --         auto_trigger = true,
-    --       },
-    --       panel = { enabled = false },
-    --       -- filetypes = {
-    --       --   yaml = true,
-    --       --   markdown = true,
-    --       -- },
-    --     })
-    --   end,
-    -- },
   },
 }
