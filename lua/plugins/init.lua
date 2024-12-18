@@ -4,23 +4,27 @@ return {
     opts = {
       ensure_installed = {
         "gopls",
+        "goimports-revisor",
+        "awk-language-server",
+        "codespell",
       },
     },
   },
+
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
-    opts = require "configs.conform",
+    event = "BufWritePre", -- enable format on save
+    opts = require("configs.conform"),
   },
 
   {
     "NvChad/nvterm",
-     enabled = false
+    enabled = false,
   },
 
   {
     "nvim-tree/nvim-tree.lua",
-     enabled = false
+    enabled = false,
   },
 
   {

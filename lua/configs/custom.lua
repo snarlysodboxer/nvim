@@ -8,3 +8,7 @@ opt.wildmode = { "longest", "list" }
 
 -- do not undo past last opening of a file
 opt.undofile = false
+
+-- enable spell checking
+opt.spelllang = "en_us"
+opt.spell = true
