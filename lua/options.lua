@@ -7,3 +7,5 @@ o.shell = "/usr/local/bin/bash"
 o.backspace = "indent,eol,start"
 
 o.fileignorecase = false
+
+o.clipboard = ""
