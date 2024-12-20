@@ -12,3 +12,8 @@ opt.undofile = false
 -- enable spell checking
 opt.spelllang = "en_us"
 opt.spell = true
+
+-- opt.incsearch = true
+
+-- keep 8 lines above and below cursor where possible
+opt.scrolloff = 8

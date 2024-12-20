@@ -6,12 +6,12 @@
 local M = {}
 
 M.base46 = {
-  theme = "github_dark",
+  theme = "nightfox", -- "chocolate", "nightfox", "material-darker", "nightfox", "nightowl", "oceanic-next", "penumbra_dark", "tokyonight", "vscode_dark"
 
-  -- hl_override = {
-  -- 	Comment = { italic = true },
-  -- 	["@comment"] = { italic = true },
-  -- },
+  hl_override = {
+    Comment = { italic = true },
+    ["@comment"] = { italic = true },
+  },
 }
 
 M.ui = {

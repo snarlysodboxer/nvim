@@ -38,9 +38,37 @@ nomap("i", "<C-l>") -- "move right"
 nomap("i", "<C-j>") -- "move down"
 nomap("i", "<C-k>") -- "move up"
 
--- stop highlighting search by pressing enter
-map("n", "<CR>", ":nohlsearch<cr>")
+-- clear search highlights
+map("n", "<leader><CR>", ":nohlsearch<cr>", { desc = "Clear search highlights" })
 
 -- base64 encode/decode selection
-map("v", "<leader>64", "c<c-r>=system('base64', @\")<cr><esc>")
-map("v", "<leader>d64", "c<c-r>=system('base64 --decode', @\")<cr><esc>")
+map("v", "<leader>64", "c<c-r>=system('base64', @\")<cr><esc>", { desc = "Base64 encode selection" })
+map("v", "<leader>d64", "c<c-r>=system('base64 --decode', @\")<cr><esc>", { desc = "Base64 decode selection" })
+
+-- move selected lines up and down
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+
+-- keep cursor in place when half-page scrolling
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page scroll up" })
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page scroll down" })
+
+-- keep cursor in place when jumping to next/previous search result. open folds
+map("n", "n", "nzzzv", { desc = "Jump to next search result, center cursor" })
+map("n", "N", "Nzzzv", { desc = "Jump to previous search result, center cursor" })
+
+-- paste without copying selection
+map("x", "<leader>p", '"_dP', { desc = "Paste without copying selection" })
+
+-- delete without copying selection
+map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete without copying selection" })
+
+-- yank to system clipboard
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+map("n", "<leader>Y", '"+Y', { desc = "Yank to system clipboard" })
+
+-- navigate quickfix list
+-- map("n", "<C-k>", "<cmd>cnext<CR>zz")
+-- map("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+-- lua vim.lsp.buf.rename()
