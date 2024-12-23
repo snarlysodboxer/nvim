@@ -1,5 +1,4 @@
 -- Copy/modified from https://github.com/MariaSolOs/dotfiles/tree/e9eb1f8e027840f872e69e00e082e2be10237499
--- Copilot.
 return {
   {
     "zbirenbaum/copilot.lua",

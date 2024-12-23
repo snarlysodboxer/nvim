@@ -7,7 +7,7 @@ local options = {
     json = { "prettier" },
     lua = { "stylua" },
     markdown = { "prettier" },
-    protobuf = { "buf" },
+    proto = { "buf" },
     python = { "black" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
@@ -15,6 +15,14 @@ local options = {
     shell = { "shfmt" },
     toml = { "prettier" },
     yaml = { "prettier" },
+  },
+
+  formatters = {
+    -- consider instead getting shfmt to use .editorconfig or similar
+    -- for project-specific settings
+    shfmt = {
+      prepend_args = { "--case-indent", "--indent", "4" },
+    },
   },
 
   format_on_save = {
