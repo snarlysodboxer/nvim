@@ -1,5 +1,6 @@
 local options = {
   formatters_by_ft = {
+    bash = { "shfmt" },
     css = { "prettier" },
     go = { "gofumpt", "goimports-revisor" },
     html = { "prettier" },
@@ -11,10 +12,11 @@ local options = {
     python = { "black" },
     rust = { "rustfmt" },
     sh = { "shfmt" },
-    bash = { "shfmt" },
     shell = { "shfmt" },
     toml = { "prettier" },
-    yaml = { "prettier" },
+    -- yamlfmt reads config from the closest .yamlfmt.yaml file, else from
+    -- the global config at ~/.config/yamlfmt/.yamlfmt.yaml
+    yaml = { "yamlfmt" },
   },
 
   formatters = {

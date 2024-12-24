@@ -21,6 +21,8 @@ return {
         "shellcheck",
         "shfmt",
         "stylua",
+        "yaml-language-server",
+        "yamlfmt",
       },
     },
   },

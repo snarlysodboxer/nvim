@@ -8,7 +8,12 @@ return {
     local nvlsp = require("nvchad.configs.lspconfig")
 
     -- lsps with default config
-    local servers = { "bashls", "protols", "html", "cssls" }
+    local servers = {
+      "bashls",
+      "cssls",
+      "html",
+      "protols",
+    }
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup({
         on_attach = nvlsp.on_attach,
@@ -35,7 +40,28 @@ return {
       },
     })
 
-    ---- Doing format-on-save through conform now.
+    lspconfig.yamlls.setup({
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      settings = {
+        yaml = {
+          -- don't use yaml-language-server's built-in formatter,
+          -- as it insists on indented sequences.
+          validate = true,
+          hover = true,
+          completion = true,
+          schemaStore = {
+            enable = false,
+          },
+          -- schemas = { -- not working
+          --   ["kubernetes"] = "{appProject,clusterRole,clusterRole,clusterRoleBinding,configMap,configMap,customResourceDefinition,daemonSet,deployment,deployment,externalSecret,iamPolicyMember,ingress,ingressClass,job,kustomization,labelTransformer,namespace,namespace,persistentVolume,persistentVolumeClaim,priorityClass,role,role,role,roleBinding,roleBinding,roleBinding,secret,service,service,serviceAccount,serviceAccount,statefulSet,validatingWebhookConfiguration}*\\.yaml",
+          -- },
+        },
+      },
+    })
+
+    ---- Doing golang format-on-save through conform now.
     ---- Leave this for comparison until further testing.
     -- on save, format and organizeImports
     -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
