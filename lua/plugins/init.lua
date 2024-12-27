@@ -5,11 +5,6 @@ return {
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
-    enabled = false,
-  },
-
-  {
     "windwp/nvim-autopairs",
     -- disable automatically adding the opposite versions of `{`, `(`, `[`, etc
     enabled = false,

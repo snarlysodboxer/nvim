@@ -16,6 +16,10 @@ local lazy_config = require("configs.lazy")
 -- load plugins
 require("lazy").setup({
   {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  },
+  {
     "NvChad/NvChad",
     lazy = false,
     branch = "v2.5",

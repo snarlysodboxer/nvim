@@ -6,7 +6,7 @@ return {
       formatters_by_ft = {
         bash = { "shfmt" },
         css = { "prettier" },
-        go = { "gofumpt", "goimports-revisor" },
+        go = { "gofumpt", "goimports-reviser" },
         html = { "prettier" },
         javascript = { "prettier" },
         json = { "prettier" },

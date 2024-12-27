@@ -27,7 +27,7 @@ return {
     },
     config = function(_, opts)
       local cmp = require("cmp")
-      -- local copilot = require("copilot.suggestion")
+      local copilot = require("copilot.suggestion")
       local luasnip = require("luasnip")
 
       require("copilot").setup(opts)
@@ -47,6 +47,7 @@ return {
 
       -- Disable suggestions when inside a snippet.
       cmp.event:on("menu_closed", function()
+        copilot.dismiss() -- since we're not dismissing on menu_opened
         set_trigger(not luasnip.expand_or_locally_jumpable())
       end)
       vim.api.nvim_create_autocmd("User", {

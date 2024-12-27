@@ -6,7 +6,7 @@ local nomap = vim.keymap.del
 map("i", "jk", "<ESC>")
 
 -- open files relative to current file
-nomap("n", "<leader>e")
+nomap("n", "<leader>e") -- "nvimtree toggle window"
 map("n", "<leader>e", function()
   local input = vim.fn.input(":edit ", vim.fn.expand("%:h") .. "/", "file")
   vim.api.nvim_exec2(":edit " .. input, {})
@@ -62,3 +62,6 @@ map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete without copying selection
 -- yank to system clipboard
 map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 map("n", "<leader>Y", '"+Y', { desc = "Yank to system clipboard" })
+
+-- "nvimtree toggle window"
+map("n", "<leader>l", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })

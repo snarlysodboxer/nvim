@@ -4,15 +4,36 @@ return {
     -- load defaults i.e lua_lsp
     require("nvchad.configs.lspconfig").defaults()
 
+    require("mason").setup({
+      ensure_installed = {
+        "black",
+        "gofumpt",
+        "goimports-reviser",
+        "prettier",
+        "shfmt",
+        "stylua",
+        "yamlfmt",
+      },
+    })
+    require("mason-lspconfig").setup({
+      -- automatically install the LSPs setup in lspconfig
+      automatic_installation = true,
+    })
+
     local lspconfig = require("lspconfig")
     local nvlsp = require("nvchad.configs.lspconfig")
 
     -- lsps with default config
     local servers = {
       "bashls",
+      "buf_ls",
       "cssls",
+      "denols",
       "html",
-      "protols",
+      "lua_ls",
+      "pylsp",
+      "rust_analyzer",
+      "ts_ls",
     }
     for _, lsp in ipairs(servers) do
       lspconfig[lsp].setup({
@@ -21,6 +42,34 @@ return {
         capabilities = nvlsp.capabilities,
       })
     end
+
+    -- setup dockerfile-language-server
+    -- NOTE: this guy has issues with highlighting right now, see: https://github.com/nvim-treesitter/nvim-treesitter/issues/6530
+    require("lspconfig").dockerls.setup({
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      settings = {
+        docker = {
+          languageserver = {
+            diagnostics = {
+              -- string values must be equal to "ignore", "warning", or "error"
+              -- deprecatedMaintainer = "error",
+              -- directiveCasing = "error",
+              -- emptyContinuationLine = "error",
+              -- instructionCasing = "error",
+              -- instructionCmdMultiple = "error",
+              -- instructionEntrypointMultiple = "error",
+              -- instructionHealthcheckMultiple = "error",
+              -- instructionJSONInSingleQuotes = "error",
+            },
+            formatter = {
+              ignoreMultilineInstructions = false,
+            },
+          },
+        },
+      },
+    })
 
     -- setup gopls
     lspconfig.gopls.setup({
@@ -40,6 +89,7 @@ return {
       },
     })
 
+    -- setup yaml-language-server
     lspconfig.yamlls.setup({
       on_attach = nvlsp.on_attach,
       on_init = nvlsp.on_init,
@@ -60,31 +110,5 @@ return {
         },
       },
     })
-
-    ---- Doing golang format-on-save through conform now.
-    ---- Leave this for comparison until further testing.
-    -- on save, format and organizeImports
-    -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    --   pattern = "*.go",
-    --   callback = function()
-    --   local params = vim.lsp.util.make_range_params()
-    --   params.context = {only = {"source.organizeImports"}}
-    --   -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    --   -- machine and codebase, you may want longer. Add an additional
-    --   -- argument after params if you find that you have to write the file
-    --   -- twice for changes to be saved.
-    --   -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    --   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", {})
-    --   for cid, res in pairs(result or {}) do
-    --     for _, r in pairs(res.result or {}) do
-    --     if r.edit then
-    --       local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-    --       vim.lsp.util.apply_workspace_edit(r.edit, enc)
-    --     end
-    --     end
-    --   end
-    --   vim.lsp.buf.format({async = false})
-    --   end,
-    -- })
   end,
 }
