@@ -29,6 +29,7 @@ return {
       "buf_ls",
       "cssls",
       "denols",
+      "golangci_lint_ls",
       "html",
       "lua_ls",
       "pylsp",
@@ -82,9 +83,10 @@ return {
           usePlaceholders = true,
           analyses = {
             unusedvariable = true,
-            unusedparams = true,
-            shadow = true,
+            unusedparams = false,
+            shadow = false,
           },
+          staticcheck = true,
         },
       },
     })
