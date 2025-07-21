@@ -65,3 +65,6 @@ map("n", "<leader>Y", '"+Y', { desc = "Yank to system clipboard" })
 
 -- "nvimtree toggle window"
 map("n", "<leader>l", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
+
+-- open popup about error using same syntax as vim in vscode
+map("n", "gh", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })

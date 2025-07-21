@@ -9,6 +9,7 @@ return {
         "black",
         "gofumpt",
         "goimports-reviser",
+        "golangci-lint",
         "prettier",
         "shfmt",
         "stylua",
@@ -78,7 +79,7 @@ return {
       capabilities = nvlsp.capabilities,
       settings = {
         gopls = {
-          gofumpt = true,
+          -- gofumpt = true, turns `0755` into `0o755` for some reason
           completeUnimported = true,
           usePlaceholders = true,
           analyses = {
