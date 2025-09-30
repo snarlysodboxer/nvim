@@ -68,3 +68,50 @@ map("n", "<leader>l", "<Cmd>NvimTreeToggle<CR>", { desc = "Toggle NvimTree" })
 
 -- open popup about error using same syntax as vim in vscode
 map("n", "gh", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
+
+-- Toggle hyphen inclusion in word boundaries for * command
+local function toggle_hyphen_in_word()
+  local current_iskeyword = vim.opt.iskeyword:get()
+  local has_hyphen = false
+
+  -- Check if hyphen is in iskeyword (it could be stored as a number code 45 or as "-")
+  for _, value in ipairs(current_iskeyword) do
+    if value == "-" or value == 45 then
+      has_hyphen = true
+      break
+    end
+  end
+
+  if has_hyphen then
+    -- Remove hyphen from iskeyword
+    vim.opt.iskeyword:remove("-")
+    vim.opt.iskeyword:remove(45)
+    print("* will NOT include hyphens in word boundaries")
+  else
+    -- Add hyphen to iskeyword
+    vim.opt.iskeyword:append("-")
+    print("* will include hyphens in word boundaries")
+  end
+end
+
+local function show_word_boundary_status()
+  local current_iskeyword = vim.opt.iskeyword:get()
+  local has_hyphen = false
+
+  for _, value in ipairs(current_iskeyword) do
+    if value == "-" or value == 45 then
+      has_hyphen = true
+      break
+    end
+  end
+
+  if has_hyphen then
+    print("* currently includes hyphens in word boundaries")
+  else
+    print("* currently does NOT include hyphens in word boundaries")
+  end
+  print("iskeyword: " .. table.concat(current_iskeyword, ","))
+end
+
+map("n", "<leader>*", toggle_hyphen_in_word, { desc = "Toggle hyphen inclusion in word boundaries for *" })
+map("n", "<leader>?*", show_word_boundary_status, { desc = "Show current word boundary settings for *" })
