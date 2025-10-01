@@ -12,6 +12,7 @@ return {
         json = { "prettier" },
         lua = { "stylua" },
         -- markdown = { "prettier" },
+        nix = { "nixfmt" },
         proto = { "buf" },
         python = { "black" },
         rust = { "rustfmt" },
@@ -28,6 +29,9 @@ return {
         -- for project-specific settings
         shfmt = {
           prepend_args = { "--case-indent", "--indent", "4" },
+        },
+        nixfmt = {
+          command = "nixfmt",
         },
       },
 

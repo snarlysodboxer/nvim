@@ -4,17 +4,27 @@ return {
     -- load defaults i.e lua_lsp
     require("nvchad.configs.lspconfig").defaults()
 
+    -- Check if we're on NixOS by looking for nixd in system PATH
+    local is_nixos = vim.fn.executable('nixd') == 1
+
+    local mason_ensure_installed = {
+      "black",
+      "gofumpt",
+      "goimports-reviser",
+      "golangci-lint",
+      "prettier",
+      "shfmt",
+      "stylua",
+      "yamlfmt",
+    }
+
+    -- Only install nixd via Mason if not available system-wide
+    if not is_nixos then
+      table.insert(mason_ensure_installed, "nixd")
+    end
+
     require("mason").setup({
-      ensure_installed = {
-        "black",
-        "gofumpt",
-        "goimports-reviser",
-        "golangci-lint",
-        "prettier",
-        "shfmt",
-        "stylua",
-        "yamlfmt",
-      },
+      ensure_installed = mason_ensure_installed,
     })
     require("mason-lspconfig").setup({
       -- automatically install the LSPs setup in lspconfig
@@ -110,6 +120,26 @@ return {
           -- schemas = { -- not working
           --   ["kubernetes"] = "{appProject,clusterRole,clusterRole,clusterRoleBinding,configMap,configMap,customResourceDefinition,daemonSet,deployment,deployment,externalSecret,iamPolicyMember,ingress,ingressClass,job,kustomization,labelTransformer,namespace,namespace,persistentVolume,persistentVolumeClaim,priorityClass,role,role,role,roleBinding,roleBinding,roleBinding,secret,service,service,serviceAccount,serviceAccount,statefulSet,validatingWebhookConfiguration}*\\.yaml",
           -- },
+        },
+      },
+    })
+
+    -- setup nixd (Nix language server)
+    local nixd_cmd = is_nixos and "nixd" or vim.fn.stdpath('data') .. '/mason/bin/nixd'
+
+    lspconfig.nixd.setup({
+      cmd = { nixd_cmd },
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+      settings = {
+        nixd = {
+          nixpkgs = {
+            expr = "import <nixpkgs> { }",
+          },
+          formatting = {
+            command = { "nixfmt" },
+          },
         },
       },
     })
