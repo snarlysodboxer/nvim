@@ -12,8 +12,12 @@ o.fileignorecase = false
 -- use separate neovim and system clipboards
 o.clipboard = ""
 
--- TODO figure out highlighting TODOs
-vim.api.nvim_set_hl(0, "@text.note", { link = "Search" })
+-- disable mouse support completely so terminal can handle mouse selections
+o.mouse = ""
+
+-- Highlight TODO keywords
+vim.api.nvim_set_hl(0, "TodoHighlight", { fg = "#282828", bg = "#fabd2f", bold = true })
+vim.fn.matchadd("TodoHighlight", "\\<TODO\\>")
 
 -- Highlight trailing whitespace
 vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "#ff5555" })
