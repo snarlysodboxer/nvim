@@ -23,6 +23,9 @@ vim.fn.matchadd("TodoHighlight", "\\<TODO\\>")
 vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "#ff5555" })
 vim.cmd([[match TrailingWhitespace /\s\+$/]])
 
+-- Include hyphens in word boundaries by default (for * command)
+vim.opt.iskeyword:append("-")
+
 -- Auto-remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
