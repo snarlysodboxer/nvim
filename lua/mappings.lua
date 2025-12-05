@@ -49,9 +49,6 @@ map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half page scroll up" })
 map("n", "<C-d>", "<C-d>zz", { desc = "Half page scroll down" })
 
--- keep cursor in place when jumping to next/previous search result. open folds
-map("n", "n", "nzzzv", { desc = "Jump to next search result, center cursor" })
-map("n", "N", "Nzzzv", { desc = "Jump to previous search result, center cursor" })
 
 -- paste without copying selection
 map("x", "<leader>p", '"_dP', { desc = "Paste without copying selection" })
