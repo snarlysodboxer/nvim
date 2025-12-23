@@ -26,6 +26,13 @@ vim.cmd([[match TrailingWhitespace /\s\+$/]])
 -- Include hyphens in word boundaries by default (for * command)
 vim.opt.iskeyword:append("-")
 
+-- Recognize .nix-import files as nix (used in Cardano repos)
+vim.filetype.add({
+  extension = {
+    ["nix-import"] = "nix",
+  },
+})
+
 -- Auto-remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",

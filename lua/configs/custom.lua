@@ -1,5 +1,8 @@
 local opt = vim.opt
 
+-- keep cursor position stable when switching/resizing splits
+opt.splitkeep = "cursor"
+
 -- use statusline in each split
 opt.laststatus = 2
 
