@@ -15,10 +15,6 @@ o.clipboard = ""
 -- disable mouse support completely so terminal can handle mouse selections
 o.mouse = ""
 
--- Highlight TODO keywords
-vim.api.nvim_set_hl(0, "TodoHighlight", { fg = "#282828", bg = "#fabd2f", bold = true })
-vim.fn.matchadd("TodoHighlight", "\\<TODO\\>")
-
 -- Highlight trailing whitespace
 vim.api.nvim_set_hl(0, "TrailingWhitespace", { bg = "#ff5555" })
 vim.cmd([[match TrailingWhitespace /\s\+$/]])

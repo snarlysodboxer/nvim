@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "nightfox", -- "chocolate", "nightfox", "material-darker", "nightfox", "nightowl", "oceanic-next", "penumbra_dark", "tokyonight", "vscode_dark"
+  theme = "chadracula", -- "chocolate", "chadracula", "material-darker", "chadracula", "nightowl", "oceanic-next", "penumbra_dark", "tokyonight", "vscode_dark"
 
   hl_override = {
     Comment = { italic = true },

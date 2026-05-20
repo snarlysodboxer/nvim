@@ -3,8 +3,6 @@ require("nvchad.mappings")
 local map = vim.keymap.set
 local nomap = vim.keymap.del
 
-map("i", "jk", "<ESC>")
-
 -- open files relative to current file
 nomap("n", "<leader>e") -- "nvimtree toggle window"
 map("n", "<leader>e", function()

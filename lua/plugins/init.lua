@@ -25,4 +25,11 @@ return {
       vim.api.nvim_create_user_command("PeekClose", require("peek").close, {})
     end,
   },
+
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = false,
+    opts = {},
+  },
 }

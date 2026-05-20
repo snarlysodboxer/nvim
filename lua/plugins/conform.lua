@@ -3,6 +3,15 @@ return {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- enable format on save
     opts = function()
+      -- Only format YAML if repo has .yamlfmt config
+      local function get_yaml_formatter(bufnr)
+        local root = vim.fs.root(bufnr, { ".yamlfmt" })
+        if root then
+          return { "yamlfmt" }
+        end
+        return {}
+      end
+
       -- Custom function to determine which Nix formatter to use
       local function get_nix_formatter(bufnr)
         -- First try treefmt if treefmt.toml exists
@@ -42,6 +51,7 @@ return {
           javascript = { "prettier" },
           json = { "prettier" },
           lua = { "stylua" },
+          markdown = { "injected" },
           -- Custom function determines which formatter based on context
           nix = get_nix_formatter,
           proto = { "buf" },
@@ -50,12 +60,12 @@ return {
           sh = { "shfmt" },
           shell = { "shfmt" },
           toml = { "prettier" },
-          yaml = { "yamlfmt" },
+          yaml = get_yaml_formatter,
         },
 
         formatters = {
           shfmt = {
-            prepend_args = { "--case-indent", "--indent", "4" },
+            prepend_args = { "--case-indent", "--indent", "4", "--space-redirects" },
           },
           nixfmt = {
             command = "nixfmt",

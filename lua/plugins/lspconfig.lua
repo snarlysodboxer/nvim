@@ -38,6 +38,7 @@ return {
     local servers = {
       "bashls",
       "buf_ls",
+      "crystalline",
       "cssls",
       "denols",
       "golangci_lint_ls",
@@ -85,7 +86,19 @@ return {
 
     -- setup gopls
     lspconfig.gopls.setup({
-      on_attach = nvlsp.on_attach,
+      on_attach = function(client, bufnr)
+        nvlsp.on_attach(client, bufnr)
+        -- Override gd to jump directly to the first definition without opening quickfix
+        vim.keymap.set("n", "gd", function()
+          vim.lsp.buf.definition({ reuse_win = true, on_list = function(opts)
+            if opts and opts.items and #opts.items > 0 then
+              local item = opts.items[1]
+              vim.cmd("edit " .. vim.fn.fnameescape(item.filename))
+              vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+            end
+          end })
+        end, { buffer = bufnr, desc = "Go to definition (first result)" })
+      end,
       capabilities = nvlsp.capabilities,
       settings = {
         gopls = {
