@@ -1,7 +1,12 @@
 require("nvchad.mappings")
 
 local map = vim.keymap.set
-local nomap = vim.keymap.del
+-- Tolerant unmap: NvChad's default mappings change between versions, so some of
+-- the mappings we try to remove may not exist. vim.keymap.del throws E31 on a
+-- missing mapping, which would abort the rest of this file — pcall keeps going.
+local nomap = function(mode, lhs, opts)
+  pcall(vim.keymap.del, mode, lhs, opts)
+end
 
 -- open files relative to current file
 nomap("n", "<leader>e") -- "nvimtree toggle window"

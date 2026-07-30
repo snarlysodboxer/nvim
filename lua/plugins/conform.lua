@@ -12,6 +12,17 @@ return {
         return {}
       end
 
+      -- Use treefmt when the repo has a treefmt.toml (so its nushell config,
+      -- e.g. 2-space indent, is respected), otherwise fall back to standalone
+      -- nufmt (which uses its own default, 4-space indent).
+      local function get_nu_formatter(bufnr)
+        local root = vim.fs.root(bufnr, { "treefmt.toml", ".treefmt.toml" })
+        if root then
+          return { "treefmt" }
+        end
+        return { "nufmt" }
+      end
+
       -- Custom function to determine which Nix formatter to use
       local function get_nix_formatter(bufnr)
         -- First try treefmt if treefmt.toml exists
@@ -49,11 +60,12 @@ return {
           go = { "gofmt" },
           html = { "prettier" },
           javascript = { "prettier" },
-          json = { "prettier" },
+          -- json = { "prettier" },
           lua = { "stylua" },
-          markdown = { "injected" },
+          -- markdown = { "injected" },
           -- Custom function determines which formatter based on context
           nix = get_nix_formatter,
+          nu = get_nu_formatter,
           proto = { "buf" },
           python = { "black" },
           rust = { "rustfmt" },
@@ -75,10 +87,20 @@ return {
           },
         },
 
-        format_on_save = {
-          timeout_ms = 1000,
-          lsp_fallback = true,
-        },
+        format_on_save = function(bufnr)
+          -- For yaml, never fall back to the LSP formatter (yaml-language-server
+          -- insists on indented sequences). yamlfmt still runs when a repo has a
+          -- .yamlfmt config (see get_yaml_formatter); without one, yaml is left
+          -- untouched on save. Everything else keeps the LSP fallback.
+          local lsp_format = "fallback"
+          if vim.bo[bufnr].filetype == "yaml" then
+            lsp_format = "never"
+          end
+          return {
+            timeout_ms = 1000,
+            lsp_format = lsp_format,
+          }
+        end,
       }
     end,
   },
