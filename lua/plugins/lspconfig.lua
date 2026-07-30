@@ -7,8 +7,8 @@ return {
     -- on_attach keymaps, so per-server on_attach is no longer needed.
     require("nvchad.configs.lspconfig").defaults()
 
-    -- Check if we're on NixOS by looking for nixd in system PATH
-    local is_nixos = vim.fn.executable('nixd') == 1
+    -- Prefer a nixd already on PATH (e.g. provided by nix/home-manager)
+    local nixd_on_path = vim.fn.executable('nixd') == 1
 
     -- Tools always installed via Mason (not currently provided by Nix).
     local mason_ensure_installed = {
@@ -19,10 +19,10 @@ return {
       "stylua",
     }
 
-    -- Tools provided by Nix on NixOS; install them via Mason only elsewhere so
-    -- the config stays portable to non-Nix machines. Mirrors the nixd pattern:
-    -- on NixOS these come from the system PATH (broken if pulled from Mason).
-    if not is_nixos then
+    -- Tools provided by Nix (nixd, formatters, linters) when nixd is on PATH;
+    -- install them via Mason only elsewhere so the config stays portable to
+    -- non-Nix machines. nixd's presence is the proxy for "Nix provides these".
+    if not nixd_on_path then
       vim.list_extend(mason_ensure_installed, {
         "nixd",
         "golangci-lint",
@@ -148,7 +148,7 @@ return {
     })
 
     -- setup nixd (Nix language server)
-    local nixd_cmd = is_nixos and "nixd" or vim.fn.stdpath('data') .. '/mason/bin/nixd'
+    local nixd_cmd = nixd_on_path and "nixd" or vim.fn.stdpath('data') .. '/mason/bin/nixd'
 
     vim.lsp.config("nixd", {
       cmd = { nixd_cmd },
