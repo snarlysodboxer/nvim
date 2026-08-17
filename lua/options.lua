@@ -29,6 +29,19 @@ vim.filetype.add({
   },
 })
 
+-- Don't inherit the jumplist from previous sessions (via shada), so <C-o>
+-- only goes back as far as the current session. Cleared per-window since
+-- session restores can open multiple windows before VimEnter.
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      vim.api.nvim_win_call(win, function()
+        vim.cmd("clearjumps")
+      end)
+    end
+  end,
+})
+
 -- Auto-remove trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
