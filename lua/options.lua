@@ -2,7 +2,7 @@ require("nvchad.options")
 
 local o = vim.o
 
-o.shell = "/usr/local/bin/bash"
+o.shell = "bash"
 
 o.backspace = "indent,eol,start"
 
